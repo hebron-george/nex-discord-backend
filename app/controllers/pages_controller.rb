@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
   def home
-    Rails.logger.info('Hitting the home page now!')
+    render json: {message: "Hello world!"}, status: :ok
   end
 end
