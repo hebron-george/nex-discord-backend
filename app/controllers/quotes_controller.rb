@@ -4,7 +4,7 @@ class QuotesController < ApplicationController
     if params[:keyword].present?
       message = Quote.search(params[:keyword]).sample.message
     else
-      message = Quote.order("RANDOM()").last
+      message = Quote.order("RANDOM()").last.message
     end
 
     render json: {status: 'SUCCESS', message: 'Found a quote', data: {quote: message}}, status: :ok
