@@ -2,7 +2,7 @@ class QuotesController < ApplicationController
 
   def find_quote
     if params[:keyword].present?
-      message = Quote.search(params[:keyword]).sample.message
+      message = Quote.search(params[:keyword]).sample&.message
       message = message.nil? ? 'No quotes found.' : message
     else
       message = Quote.order("RANDOM()").last.message
