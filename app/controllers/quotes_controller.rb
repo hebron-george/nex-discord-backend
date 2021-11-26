@@ -1,14 +1,16 @@
 class QuotesController < ApplicationController
 
   def find_quote
-    if params[:keyword].present?
-      message = Quote.search(params[:keyword]).sample&.message
-      message = message.nil? ? 'No quotes found.' : message
-    else
-      message = Quote.order("RANDOM()").last.message
-    end
+    message = Quote.find_quote(search_keyword: params[:keyword])
+    return render status: :not_found if message.nil?
 
-    render json: {status: 'SUCCESS', message: 'Found a quote', data: {quote: message}}, status: :ok
+    data = {
+      author:   message.author,
+      saved_at: message.saved_at,
+      channel:  message.channel,
+      message:  message.message
+    }
+    render json: {status: 'SUCCESS', message: 'Found a quote', data: data}, status: :ok
   end
 
   def add_quote
