@@ -30,3 +30,5 @@ tmp/*
 storage/*
 vendor/*
 log/*
+
+*.DS_Store*
